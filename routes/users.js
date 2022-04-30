@@ -127,7 +127,7 @@ router.get('/info', loggedIn, function(req,res,next) {
   res.sendFile(path.join(__dirname,'..', 'public','contact.html'));
 })
 router.get('/contact', loggedIn, function(req,res,next) {
-  client.query('select * from users where $name', [req.user.name], function(err,response){
+  client.query('select * from users where username=$1', [req.user.username], function(err,response){
     if(err){
       console.log('unable to fect the user');
       next();
