@@ -1,12 +1,19 @@
-const urlParams = new URLSearchParams(window.location.search);
-const message = urlParams.get('name');
+let who = new XMLHttpRequest(); 
+      
+who.addEventListener("load",getUser); 
+who.open("GET", "/users/whoami", true); 
+who.send();
 
-if (message) {
-  let element = (
-    <span>{message}</span>
-  );
-  ReactDOM.render(
-    element,
-    document.getElementById('name')
-  );
+function getUser(){
+  let res = JSON.parse(who.response);
+  console.log('homepage data loaded!', res);
+  if (res) {
+    let element = (
+      <span>{res.user}</span>
+    );
+    ReactDOM.render(
+      element,
+      document.getElementById('username')
+    );
+  }
 }
