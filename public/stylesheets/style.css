@@ -1,0 +1,20 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+#message {
+  color: red;
+}
+nav ul li {
+  display: inline;
+  list-style-type: none;
+}
+.menu {text-align: right;}
+
+#imgSize {
+  width: 100px;
+  height: 100px;
+}
