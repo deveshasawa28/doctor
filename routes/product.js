@@ -31,6 +31,14 @@ function loggedIn(req, res, next) {
     res.redirect('/users/login'); // user doesn't exists redirect to localhost:3000/users/login
   }
 }
+function isAdmin(req, res, next) {
+  if (req.user.username === 'admin') { //hack for temp,it should match with role, unable below code once role added to user
+  //if (req.user.role === 'admin') {
+    next(); // req.user exists, go to the next function (right after loggedIn)
+  } else {
+    res.redirect('/users/home'); // user is not admin, So redirect to localhost:3000/users/home
+  }
+}
 
 router.get('/profile',loggedIn, function(req, res){
   // req.user: passport middleware adds "user" object to HTTP req object
@@ -68,7 +76,7 @@ function createProduct(req, res, next){
  }
  */
 router.post('/', function(req, res, next) {
-  client.query('SELECT * FROM users WHERE username=$1',['admin'], function(err,result){
+  client.query('SELECT * FROM users WHERE username=$1',[req.user.username], function(err,result){
     if (err) {
       console.log("sql error ");
       next(err); // throw error to error.hbs.
@@ -96,7 +104,7 @@ router.post('/', function(req, res, next) {
 // http://localhost:3000/products/productList [done]
 router.get('/productList', loggedIn, function (req, res, next) {
   console.log('Yes called productList in backend.......', req.user);
-  client.query('SELECT * FROM users WHERE username=$1', ['admin'], function (err, result) {
+  client.query('SELECT * FROM users WHERE username=$1', [req.user.username], function (err, result) {
     if (err) {
       console.log("exam.js: sql error ");
       next(err); // throw error
@@ -129,4 +137,16 @@ router.get('/', loggedIn, function(req, res){
   // req.user: passport middleware adds "user" object to HTTP req object
   res.sendFile(path.join(__dirname,'..', 'public','products.html'));
 });
+
+//if a user is admin and click on order menu load the order page
+router.get('/orders', isAdmin, function(req, res){
+  res.sendFile(path.join(__dirname,'..', 'public','order.html'));
+});
+
+//only admin can post the order,
+router.post('/orders', isAdmin, function(req, res){
+  //will not added orders to db as now.
+  res.json({'message': 'order placed successFully'});
+});
+
 module.exports = router;
