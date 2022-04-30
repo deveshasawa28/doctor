@@ -3,8 +3,7 @@
   <title>Forms</title>
 
   <link rel="stylesheet" href="/stylesheets/style.css">
-  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
-  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
   <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
@@ -13,12 +12,30 @@
 </head>
 
 <body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="users/profile"> <img alt="Online Medicine Portal" src=""></a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="users/home">Home</a></li>
+        <li><a href="/products">Products</a></li>
+        <li class="active"><a href="/products/orders">Orders</a></li>
+        <li ><a href="/users/info">Contact Us</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/users/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/users/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <h2> Order list :<span id="whoami"></span></h2>
   <div id= "message"></div>
   <div id="orders">
     <!-- This element's contents will be replaced with your component. -->
   </div>
-  <a href="/exam/logout">Log out</a><br>
+  <a href="/users/logout">Log out</a><br>
 
   <!-- Load our React component. -->
   <script src="/javascripts/whoami.js" type="text/babel"></script>

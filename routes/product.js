@@ -32,7 +32,7 @@ function loggedIn(req, res, next) {
   }
 }
 function isAdmin(req, res, next) {
-  if (req.user.username === 'admin') { //hack for temp,it should match with role, unable below code once role added to user
+  if (req.user && req.user.username === 'admin') { //hack for temp,it should match with role, unable below code once role added to user
   //if (req.user.role === 'admin') {
     next(); // req.user exists, go to the next function (right after loggedIn)
   } else {
@@ -54,20 +54,6 @@ function notLoggedIn(req, res, next) {
   }
 }
 
-
-function createProduct(req, res, next){
-  var salt = bcrypt.genSaltSync(10);
-  var password = bcrypt.hashSync(req.body.password, salt);
-
-  client.query('INSERT INTO users (username, password, fullname, prefer) VALUES($1, $2, $3, $4)', [req.body.username, password,req.body.fullname,req.body.prefer], function(err, result) {
-    if (err) {
-      console.log("unable to query INSERT");
-      return next(err); // throw error to error.hbs.
-    }
-    console.log("User creation is successful");
-    res.redirect('/users/login?message=We+created+your+account+successfully!');
-  });
-}
 /** POST http://localhost:3000/products/ --> with body 
  {
     "productName": "madicin5",
