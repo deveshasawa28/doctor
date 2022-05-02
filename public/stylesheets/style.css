@@ -19,15 +19,15 @@ nav ul li {
   height: 100px;
 }
 
-.bg {
-  /* The image used */
-  background-image: url("./public/images/homebg.jpg");
-
-  /* Full height */
-  height: 100%; 
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.flex-container {
+  display: flex;
 }
+
+.flex-child {
+  flex: 1;
+  border: 2px solid yellow;
+}  
+
+.flex-child:first-child {
+  margin-right: 20px;
+} 

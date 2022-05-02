@@ -12,26 +12,27 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="users/profile"> <img alt="Online Medicine Portal" src=""></a>
+  <div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="users/profile"> <img alt="Online Medicine Portal" src=""></a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="users/home">Home</a></li>
+          <li class="active"><a href="/products">Products</a></li>
+          <li><a href="/products/orders">Orders</a></li>
+          <li><a href="users/info">Contact Us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/users/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="/users/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
       </div>
-      <ul class="nav navbar-nav">
-        <li><a href="users/home">Home</a></li>
-        <li class="active"><a href="/products">Products</a></li>
-        <li><a href="/products/orders">Orders</a></li>
-        <li><a href="users/info">Contact Us</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/users/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/users/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-  </nav>
+    </nav>
+  </div>
 
-  <div class="container">
-    <!-- <div id= "message"></div>
+  <!-- <div id= "message"></div>
      <h3>Product list </h3>
      <div id="products">
     </div> 
@@ -42,20 +43,37 @@
      <h3>Product list </h3>
      <div id="order">
     </div>  -->
-    <div class="row">
-      <div class="col">
+  <!-- <div class="container">
+    <div class="row justify-content-around">
+      <div class="col-4">
         <h3>Product list </h3>
-        <div id="products"> </div>
+        <span id="products"> </span>
       </div>
-      <div class="col">
+      <div class="col-4">
         <h3>orders list </h3>
-        <div id="order"></div>
+        <span id="order"></span>
       </div>
-
     </div>
-    <!-- <script src="/javascripts/whoami.js" type="text/babel"></script> -->
-    <script src="/javascripts/products.js" type="text/babel"></script>
-    <script src="/javascripts/message.js" type="text/babel"></script>
+
+  </div> -->
+  <br/>
+<div class="flex-container">
+
+  <div class="flex-child magenta">
+    <h3>Product list </h3>
+    <span id="products"> </span>
+  </div>
+  
+  <div class="flex-child green">
+    <button class="btn btn-default flex-justify"> Place Orders </button>
+    <h3>orders list </h3>
+    <span id="order"></span>
+  </div>
+  
+</div>
+  <!-- <script src="/javascripts/whoami.js" type="text/babel"></script> -->
+  <script src="/javascripts/products.js" type="text/babel"></script>
+  <script src="/javascripts/message.js" type="text/babel"></script>
 </body>
 
 </html>
