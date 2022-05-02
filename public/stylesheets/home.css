@@ -1,0 +1,37 @@
+body,
+html {
+  height: 100%;
+}
+body {
+  padding-top: 50px;
+}
+.full {
+  padding: 0 !important;
+  margin: 0 auto !important;
+  background-size: cover;
+  overflow: hidden;
+}
+.wide {
+  width: 100%;
+  height: auto;
+}
+
+.logo {
+  color: #fff;
+  font-weight: 800;
+  font-size: 14pt;
+  padding: 25px;
+  text-align: center;
+}
+.line {
+  padding-top: 20px;
+  white-space: no-wrap;
+  overflow: hidden;
+  text-align: center;
+}
+@media (orientation: portrait) {
+  .full {
+    background-size: 200% auto;
+    background-position: top right;
+  }
+}

@@ -24,29 +24,31 @@ function success() {
         <div className="col-sm-6 col-md-4">
           <div className="thumbnail">
             <div className="caption">
-              <h3>product name:       ${cart[i].product_name}</h3>
-              <p>product description: ${cart[i].product_des}</p>
-              <p>amount:               ${cart[i].ammount}</p>
-              <button className="btn btn-default" onClick='${e => cartDelete(index)} '>Remove from cart</button>
+              <p> Product name: <b>${cart[i].product_name}</b></p>
+              <p>  Product description: <b>${cart[i].product_des}</b></p>
+              <p>  Amount: <b>${cart[i].ammount}</b></p>
+              <br/>
+              <button className="btn btn-primary" onClick='${e => cartDelete(index)} '>Remove from cart</button>
             </div>
           </div>
         </div>
       </div>`
     }
     document.getElementById("order").innerHTML = carts
-   
+
   }
   const productsList = data.map((item, index) =>
     <div className="row" key={index}>
-      <div className="col-sm-6 col-md-4">
+      <div className="col-sm-12 col-md-8 ">
         <div className="thumbnail">
           <div className="caption">
-            <h3>product name:       {item.product_name}</h3>
-            <p>product description: {item.product_des}</p>
-            <p>amount:               {item.ammount}</p>
-            <p><button className="btn btn-primary" onClick={e => cartAdd(item, cart.length)} >Add to cart</button>
-              <button className="btn btn-default" onClick={e => cartDelete(cart.length)} >Remove from cart</button>
-            </p>
+            <p> Product name: <b>{item.product_name}</b> </p>
+            <p> Product description: <b>{item.product_des}</b> </p>
+            <p> Amount: <b>{item.ammount} </b> </p>
+            <div>
+              <button className="btn btn-primary" onClick={e => cartAdd(item, cart.length)} >Add to cart</button></div>
+            <div> <button className="btn btn-primary" onClick={e => cartDelete(cart.length)} >Remove from cart</button></div>
+
           </div>
         </div>
       </div>
@@ -59,12 +61,12 @@ function success() {
     </div>
   );
 
-  
+
   ReactDOM.render(
     element,
     document.getElementById('products')
   );
- 
+
 
 }
 function error() {

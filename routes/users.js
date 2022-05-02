@@ -35,6 +35,15 @@ function loggedIn(req, res, next) {
   }
 }
 
+function isAdmin(req, res, next) {
+  console.log('User Role ', req.user.role);
+  if (req.user.role === 'admin') {
+    next(); // req.user exists, go to the next function (right after loggedIn)
+  } else {
+    res.redirect('/users/home'); // user is not admin, So redirect to localhost:3000/users/home
+  }
+}
+
 router.get('/profile',loggedIn, function(req, res){
   // req.user: passport middleware adds "user" object to HTTP req object
   res.sendFile(path.join(__dirname,'..', 'public','home.html'));
@@ -137,5 +146,10 @@ router.get('/contact', loggedIn, function(req,res,next) {
     res.json({"user": response.rows[0]});
   })
 })
+
+router.get('/admin', loggedIn, isAdmin, function(req,res,next){
+  res.sendFile(path.join(__dirname,'..', 'public','admin.html'))
+})
+
 
 module.exports = router;

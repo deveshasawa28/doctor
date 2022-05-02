@@ -61,7 +61,7 @@ function notLoggedIn(req, res, next) {
     "ammount": 2
  }
  */
-router.post('/', function(req, res, next) {
+router.post('/products', function(req, res, next) {
   client.query('SELECT * FROM users WHERE username=$1',[req.user.username], function(err,result){
     if (err) {
       console.log("sql error ");
@@ -77,7 +77,7 @@ router.post('/', function(req, res, next) {
           return next(err); // throw error to error.hbs.
         }
         console.log("Product creation is successful");
-        res.redirect('/products/message=We+Inserted+your+product+successfully!');
+        res.redirect('/products');
       });
     }
     else {
@@ -135,7 +135,7 @@ router.post('/orders',[loggedIn, isAdmin], function(req, res){
   res.json({'message': 'order placed successFully'});
 });
 
-router.get('/ordersList', [loggedIn, isAdmin], function(req, res,next){
+router.get('/ordersList', [loggedIn, isAdmin], function(req, res,next) {
   console.log('***** orderList fetch query');
   client.query('SELECT * FROM ORDERS where status=$1',['t'],function(err,orders){
     if(err){
@@ -179,4 +179,7 @@ router.get('/ordersList', [loggedIn, isAdmin], function(req, res,next){
   })
 });
 
+router.get('/addProduct',[loggedIn,isAdmin], function(req,res,next){
+  res.sendFile(path.join(__dirname,'..', 'public','addProduct.html'));
+});
 module.exports = router;

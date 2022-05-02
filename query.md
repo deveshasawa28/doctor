@@ -19,7 +19,10 @@ CREATE TABLE products(
 );
 
 
-insert into products (user_id, product_name, product_des, ammount)values(1, 'madicin3','Pain', 1);
+insert into products (user_id, product_name, product_des, ammount)values(1, 'madicin1','Pain', 1);
+insert into products (user_id, product_name, product_des, ammount)values(1, 'madicin2','Pain', 1);
+insert into products (user_id, product_name, product_des, ammount)values(2, 'madicin3','Pain', 1);
+insert into products (user_id, product_name, product_des, ammount)values(2, 'madicin4','Pain', 1);
 
 
 #create orders table

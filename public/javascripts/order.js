@@ -30,7 +30,7 @@ function success() {
         <td> {row.qty}</td>
         <td> {row.price} </td>
         <td> {row.total} </td>
-        <td><button className="btn btn-primary" id=''>Place Order</button></td>
+        <td><button className="btn btn-primary" id='placeOrderBtn'>Place Order</button></td>
       </tr>)
     }
     );

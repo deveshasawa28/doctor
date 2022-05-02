@@ -9,7 +9,8 @@ function getUser(){
   console.log('homepage data loaded!', res);
   if (res) {
     let element = (
-      <span>{res.user}</span>
+        <span>{res.user}</span>
+           
     );
     ReactDOM.render(
       element,
