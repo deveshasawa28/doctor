@@ -19,10 +19,10 @@ CREATE TABLE products(
 );
 
 
-insert into products (user_id, product_name, product_des, ammount)values(1, 'madicin1','Pain', 1);
-insert into products (user_id, product_name, product_des, ammount)values(1, 'madicin2','Pain', 1);
-insert into products (user_id, product_name, product_des, ammount)values(2, 'madicin3','Pain', 1);
-insert into products (user_id, product_name, product_des, ammount)values(2, 'madicin4','Pain', 1);
+insert into products (user_id, product_name, product_des, ammount)values(1, 'Augmentin 625 Duo Tablet','Treatment of Bacterial infections', 200);
+insert into products (user_id, product_name, product_des, ammount)values(1, 'Ascoril LS Syrup','Treatment of Cough with mucus', 110);
+insert into products (user_id, product_name, product_des, ammount)values(2, 'Aciloc 150 Tablet','Treatment of Peptic ulcer disease', 50);
+insert into products (user_id, product_name, product_des, ammount)values(2, 'Ursocol 300 Tablet','Treatment of Gallbladder stones', 150);
 
 
 #create orders table
