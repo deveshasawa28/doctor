@@ -80,14 +80,15 @@ router.get('/signup',function(req, res) {
 function createUser(req, res, next) {
   var salt = bcrypt.genSaltSync(10);
   var password = bcrypt.hashSync(req.body.password, salt);
-
-  client.query('INSERT INTO users (username, password, fullname, prefer) VALUES($1, $2, $3, $4)', [req.body.username, password,req.body.fullname,req.body.prefer], function(err, result) {
+  //'INSERT INTO users (username, password, fullname, prefer) VALUES($1, $2, $3, $4)', [req.body.username, password,req.body.fullname,req.body.prefer],
+  client.query('INSERT INTO users (username,password,fullname,prefer,email,streetaddress,postcode,city,phone,role) VALUES($1, $2, $3, $4,$5,$6,$7,$8,$9,$10)',
+  [req.body.username, password,req.body.fullname,req.body.prefer, req.body.email, req.body.streetaddress, req.body.postcode, req.body.city, req.body.phone, 'admin'], function(err, result) {
     if (err) {
       console.log("unable to query INSERT");
       return next(err); // throw error to error.hbs.
     }
     console.log("User creation is successful");
-    res.redirect('/users/login?message=We+created+your+account+successfully!');
+    res.redirect('/users/signup?message=We+created+your+account+successfully!');
   });
 }
 
@@ -126,6 +127,7 @@ router.get('/home', loggedIn, function(req,res,next) {
 router.get('/info', loggedIn, function(req,res,next) {
   res.sendFile(path.join(__dirname,'..', 'public','contact.html'));
 })
+
 router.get('/contact', loggedIn, function(req,res,next) {
   client.query('select * from users where username=$1', [req.user.username], function(err,response){
     if(err){
@@ -135,4 +137,5 @@ router.get('/contact', loggedIn, function(req,res,next) {
     res.json({"user": response.rows[0]});
   })
 })
+
 module.exports = router;

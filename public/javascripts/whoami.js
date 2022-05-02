@@ -5,7 +5,6 @@ who.open("GET", "/users/whoami", true);
 who.send();
 
 function whoami(){
-  
   let data = JSON.parse(who.response);
   console.log('whoami called and response is', data);
     let element =(

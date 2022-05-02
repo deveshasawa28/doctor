@@ -32,9 +32,8 @@ function loggedIn(req, res, next) {
   }
 }
 function isAdmin(req, res, next) {
-  console.log('isAdmin ', req.user.username);
-  if (req.user && req.user.username === 'admin') { //hack for temp,it should match with role, unable below code once role added to user
-  //if (req.user.role === 'admin') {
+  console.log('User Role ', req.user.role);
+  if (req.user.role === 'admin') {
     next(); // req.user exists, go to the next function (right after loggedIn)
   } else {
     res.redirect('/users/home'); // user is not admin, So redirect to localhost:3000/users/home
@@ -126,17 +125,17 @@ router.get('/', loggedIn, function(req, res){
 });
 
 //if a user is admin and click on order menu load the order page
-router.get('/orders', isAdmin, function(req, res){
+router.get('/orders', [loggedIn, isAdmin], function(req, res){
   res.sendFile(path.join(__dirname,'..', 'public','order.html'));
 });
 
 //only admin can post the order,
-router.post('/orders', isAdmin, function(req, res){
+router.post('/orders',[loggedIn, isAdmin], function(req, res){
   //will not added orders to db as now.
   res.json({'message': 'order placed successFully'});
 });
 
-router.get('/ordersList', isAdmin, function(req, res,next){
+router.get('/ordersList', [loggedIn, isAdmin], function(req, res,next){
   console.log('***** orderList fetch query');
   client.query('SELECT * FROM ORDERS where status=$1',['t'],function(err,orders){
     if(err){
@@ -144,8 +143,8 @@ router.get('/ordersList', isAdmin, function(req, res,next){
       next();
     }
     let orderList = [];
-    if(!orders.rows.length){
-      orders.rows.map((item)=>{
+    if(orders.rows.length){
+      orders.rows.forEach((item)=>{
         let temp = {};
         switch(item.product_id){
           case 1: 
@@ -174,8 +173,6 @@ router.get('/ordersList', isAdmin, function(req, res,next){
             break;  
         }
       })
-    } else {
-      return res.redirect('/products/ordersList?message=' +"NO Orders");
     }
     console.log('**** orders fetched successfully', orderList.length);
     res.json({orders: orderList});
