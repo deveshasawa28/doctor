@@ -32,6 +32,7 @@ function loggedIn(req, res, next) {
   }
 }
 function isAdmin(req, res, next) {
+  console.log('isAdmin ', req.user.username);
   if (req.user && req.user.username === 'admin') { //hack for temp,it should match with role, unable below code once role added to user
   //if (req.user.role === 'admin') {
     next(); // req.user exists, go to the next function (right after loggedIn)
@@ -133,6 +134,52 @@ router.get('/orders', isAdmin, function(req, res){
 router.post('/orders', isAdmin, function(req, res){
   //will not added orders to db as now.
   res.json({'message': 'order placed successFully'});
+});
+
+router.get('/ordersList', isAdmin, function(req, res,next){
+  console.log('***** orderList fetch query');
+  client.query('SELECT * FROM ORDERS where status=$1',['t'],function(err,orders){
+    if(err){
+      console.log('Unable to fetch the orders and reason is :', err)
+      next();
+    }
+    let orderList = [];
+    if(!orders.rows.length){
+      orders.rows.map((item)=>{
+        let temp = {};
+        switch(item.product_id){
+          case 1: 
+            temp.productName = 'paracetamol';
+            temp.email = 'admin@test.com';
+            temp.qty = item.qty;
+            temp.price = item.price;
+            temp.total = item.qty * item.price;
+            orderList.push(temp);
+            break;
+          case 2:   
+            productName = 'disprin';
+            temp.email = 'admin@test.com';
+            temp.qty = item.qty;
+            temp.price = item.price;
+            temp.total = item.qty * item.price;
+            orderList.push(temp);
+            break;
+          case 3: 
+            temp.productName = 'madicin-1';
+            temp.email = 'client@gmail.com';
+            temp.qty = item.qty;
+            temp.price = item.price;
+            temp.total = item.qty * item.price;
+            orderList.push(temp);
+            break;  
+        }
+      })
+    } else {
+      return res.redirect('/products/ordersList?message=' +"NO Orders");
+    }
+    console.log('**** orders fetched successfully', orderList.length);
+    res.json({orders: orderList});
+  })
 });
 
 module.exports = router;
