@@ -8,8 +8,25 @@ xhttp.send();
 const urlParams = new URLSearchParams(window.location.search);
 const message = urlParams.get('message');
 
+function placeOrderSucess() {
+ alert('Your Order placed successfully');
+}
+
+function errorToPlaceOrder(){
+  alert('Sorry can not place oder as of now!');
+}
+
 function placeOrder(item){
   console.log('item for placement', item);
+  var params = 'itemid='+item.productName+'&field2='+item.email;
+  
+  xhttp.addEventListener("load",placeOrderSucess);
+  xhttp.addEventListener("error", errorToPlaceOrder);
+  
+  
+  xhttp.open("POST", "/products/placeOrder", true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send(params);
 }
 /* 
 https://reactjs.org/docs/lists-and-keys.html
@@ -19,18 +36,19 @@ function success() {
 
   let data = JSON.parse(xhttp.response);
   let rows;
+  let counter=0;
   let element = '';
   console.log('orderlist fetched orders are :', data.orders.length);
   if (data.orders.length) {
     rows = data.orders.map((row) => {
-      console.log('row', row)
-      return (<tr key={JSON.stringify(row)}>
+      counter++;
+      return (<tr key={counter}>
         <td> {row.productName}</td>
         <td> {row.email}</td>
         <td> {row.qty}</td>
         <td> {row.price} </td>
         <td> {row.total} </td>
-        <td><button className="btn btn-primary" id='placeOrderBtn'>Place Order</button></td>
+        <td><button className="btn btn-primary" onClick={()=>placeOrder(row)}id={'placeOrder'+counter}>Place Order</button></td>
       </tr>)
     }
     );

@@ -21,6 +21,7 @@ client.connect(); //connect to database
 
 var passport = require('passport');
 var bcrypt = require('bcryptjs');
+const res = require('express/lib/response');
 
 
 
@@ -137,49 +138,86 @@ router.post('/orders',[loggedIn, isAdmin], function(req, res){
 
 router.get('/ordersList', [loggedIn, isAdmin], function(req, res,next) {
   console.log('***** orderList fetch query');
-  client.query('SELECT * FROM ORDERS where status=$1',['t'],function(err,orders){
-    if(err){
-      console.log('Unable to fetch the orders and reason is :', err)
-      next();
+  const query = `select t1.product_name,t2.email,
+  t1.product_des,
+  t1.ammount,
+  t2.username,t3.qty from products t1
+INNER JOIN orders t3 ON t1.product_id = t3.product_id
+INNER JOIN users t2 ON t3.user_id = t2.id;`
+  client.query(query,function(err,orders,next) {
+    if(err) {
+      console.log('Unable to fetch the oders details :', err);
+      next(err);
     }
-    let orderList = [];
+    let ordersList=[];
     if(orders.rows.length){
-      orders.rows.forEach((item)=>{
-        let temp = {};
-        switch(item.product_id){
-          case 1: 
-            temp.productName = 'paracetamol';
-            temp.email = 'admin@test.com';
-            temp.qty = item.qty;
-            temp.price = item.price;
-            temp.total = item.qty * item.price;
-            orderList.push(temp);
-            break;
-          case 2:   
-            productName = 'disprin';
-            temp.email = 'admin@test.com';
-            temp.qty = item.qty;
-            temp.price = item.price;
-            temp.total = item.qty * item.price;
-            orderList.push(temp);
-            break;
-          case 3: 
-            temp.productName = 'madicin-1';
-            temp.email = 'client@gmail.com';
-            temp.qty = item.qty;
-            temp.price = item.price;
-            temp.total = item.qty * item.price;
-            orderList.push(temp);
-            break;  
-        }
-      })
+      orders.rows.forEach(element => {
+            let temp = {};
+            temp.userName = element.username;
+            temp.productName = element.product_name;
+            temp.product_des = element.product_des;
+            temp.email = element.email;
+            temp.qty = element.qty;
+            temp.price = element.ammount;
+            temp.total = element.qty * element.ammount;
+            ordersList.push(temp);
+      });
     }
-    console.log('**** orders fetched successfully', orderList.length);
-    res.json({orders: orderList});
+    console.log('final orders after joins :',ordersList);
+    res.json({orders: ordersList});
   })
+  // client.query('SELECT * FROM ORDERS where status=$1',['t'],function(err,orders){
+  //   if(err){
+  //     console.log('Unable to fetch the orders and reason is :', err)
+  //     next();
+  //   }
+  //   let orderList = [];
+  //   let productIds = [];
+  //   if(orders.rows.length){
+  //     orders.rows.forEach((item)=> {
+  //       console.log('row item', item);
+  //       productIds.push(item.product_id)
+  //       let temp = {};
+  //       switch(item.product_id){
+  //         case 1: 
+  //           temp.productName = item;
+  //           temp.email = 'admin@test.com';
+  //           temp.qty = item.qty;
+  //           temp.price = item.price;
+  //           temp.total = item.qty * item.price;
+  //           orderList.push(temp);
+  //           break;
+  //         case 2:   
+  //           productName = 'disprin';
+  //           temp.email = 'admin@test.com';
+  //           temp.qty = item.qty;
+  //           temp.price = item.price;
+  //           temp.total = item.qty * item.price;
+  //           orderList.push(temp);
+  //           break;
+  //         case 3: 
+  //           temp.productName = 'madicin-1';
+  //           temp.email = 'client@gmail.com';
+  //           temp.qty = item.qty;
+  //           temp.price = item.price;
+  //           temp.total = item.qty * item.price;
+  //           orderList.push(temp);
+  //           break;  
+  //       }
+  //     });
+  //   }
+  //   console.log('idsssss',productIds)
+  //   console.log('**** orders fetched successfully', orderList.length);
+  //   res.json({orders: orderList});
+  // })
+  
 });
 
 router.get('/addProduct',[loggedIn,isAdmin], function(req,res,next){
   res.sendFile(path.join(__dirname,'..', 'public','addProduct.html'));
 });
+router.post('/placeOrder',[loggedIn], function(req,res,next){
+  console.log('jdsjkdslkj',req);
+  next();
+})
 module.exports = router;

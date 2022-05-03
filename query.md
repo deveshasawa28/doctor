@@ -28,11 +28,25 @@ insert into products (user_id, product_name, product_des, ammount)values(2, 'Urs
 #create orders table
 CREATE TABLE orders(
   order_id INT GENERATED ALWAYS AS IDENTITY,
-  product_id INT,
-  user_id INT,
+  product_id INT REFERENCES products (product_id),
+  user_id INT REFERENCES users (id),
   qty INT,
   price INT,
   total INT,
   status BOOLEAN);
 
-  INSERT INTO orders (product_id,user_id,qty,price,total,status) VALUES (1,1,2,20,40,TRUE);
+  INSERT INTO orders (product_id,user_id,qty,price,total,status) VALUES (16,1,2,20,40,TRUE);
+
+
+-- We have tableA and tableB, x is primary key in tableA and also
+-- a foreign key in tableB as y
+SELECT * FROM tableA JOIN tableB ON tableA.x = tableB.y;
+
+select product_name, product_des, ammount from products JOIN orders ON products.product_id = orders.product_id;
+
+select t1.product_name, 
+       t1.product_des,
+       t1.ammount,
+       t2.username,t3.qty from products t1
+INNER JOIN orders t3 ON t1.product_id = t3.product_id
+INNER JOIN users t2 ON t3.user_id = t2.id;
