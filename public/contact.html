@@ -15,7 +15,7 @@
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="users/profile"> <img alt="Online Medicine Portal" src=""></a>
+        <a class="navbar-brand" href="/users/home"> <img alt="Online Medicine Portal" src=""></a>
       </div>
       <ul class="nav navbar-nav">
         <li><a href="/users/home">Home</a></li>
@@ -29,11 +29,18 @@
       </ul>
     </div>
   </nav>
+  <nav class="menu">
+    <ul>
+      <li><a href="/users/home">Back To Home</a> | </li>
+      <li><a href="/users/logout">Log Out</a></li>
+    </ul>
+  </nav>
   <d class="container">
     <div id="message"></div>
-    <h3>Contact Us</h3>
     <div id="contact">  </div>
-
+    <div className="bg-image" style="background-image: url('/images/homebg.jpg');
+    height: 100vh">
+</div>
     </div>
     <!-- <script src="/javascripts/whoami.js" type="text/babel"></script> -->
     <script src="/javascripts/contact.js" type="text/babel"></script>

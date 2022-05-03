@@ -10,23 +10,10 @@ https://en.wikipedia.org/wiki/Map_(higher-order_function)
 */
 function success() {
   let data = JSON.parse(xhttp.response);
-  const contactElement = [data].map((item, index) =>
-    <div className="row" key={index}>
-      <div className="col-sm-6 col-md-4">
-        <div className="thumbnail">
-          <div className="caption">
-            <h3>User Id : {item.user.id}</h3>
-            <p> User name : {item.user.username}</p>
-            <p> Full name : {item.user.fullname}</p>
-            <p> Prefer : {data.user.prefer}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
   let element = (
     <div>
-      {contactElement}
+      <p>Email : onlineMadical@gmail.com</p>
+      <p> Phone : 777778888999</p>
     </div>
   );
 

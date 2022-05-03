@@ -79,10 +79,10 @@ router.post('/login',
 
 router.get('/signup',function(req, res) {
   // If logged in, go to profile page
-  if(req.user) {
-    let prefer = req.user.prefer;
-    return res.redirect('/users/profile?name='+prefer);
-  }
+  // if(req.user) {
+  //   let prefer = req.user.prefer;
+  //   return res.redirect('/users/profile?name='+prefer);
+  // }
   res.sendFile(path.join(__dirname,'..', 'public','signup.html'));
 });
 

@@ -2,7 +2,7 @@
 
 CREATE TABLE users ("id" serial primary key, username text, password text, fullname text, prefer text, email varchar,streetaddress varchar, postcode int,city varchar, phone int, role text);
 
-INSERT INTO users (username,password,fullname,prefer,email,streetaddress,postcode,city,phone,role) VALUES('client','$2a$10$tXMKF036p0ZYIxF/cJEHauw/TFrcho4DXy41Kt12D3Lbnzr221hmK','client Name','IAMCLIENT','client@test.com','street-1-address',12345,'delhi',098767,'admin');
+INSERT INTO users (username,password,fullname,prefer,email,streetaddress,postcode,city,phone,role) VALUES('admin','$2a$10$tXMKF036p0ZYIxF/cJEHauw/TFrcho4DXy41Kt12D3Lbnzr221hmK','Admin','I-AM-Admin','client@test.com','street-1-address',12345,'delhi',098767,'admin');
 
 #create product table
 
