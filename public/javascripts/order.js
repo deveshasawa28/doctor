@@ -41,13 +41,16 @@ function success() {
   console.log('orderlist fetched orders are :', data.orders.length);
   if (data.orders.length) {
     rows = data.orders.map((row) => {
+      console.log('user ::', row);
       counter++;
       return (<tr key={counter}>
         <td> {row.productName}</td>
         <td> {row.email}</td>
+        <td>{row.fullname}</td>
+        <td>{row.streetaddress}</td>
         <td> {row.qty}</td>
         <td> {row.price} </td>
-        <td> {row.total} </td>
+        <td> {row.total} </td>  
         <td><button className="btn btn-primary" onClick={()=>placeOrder(row)}id={'placeOrder'+counter}>Place Order</button></td>
       </tr>)
     }
@@ -56,7 +59,7 @@ function success() {
       <div>
         <table id="myTable">
           <thead>
-            <tr><th>Product-Name </th><th>User-Email</th><th>qty</th><th>Price</th><th>Total</th></tr>
+            <tr><th>Product-Name </th><th>User-Email</th><th>Name</th><th>Address</th><th>qty</th><th>Price</th><th>Total</th></tr>
           </thead>
           <tbody>
             {rows}

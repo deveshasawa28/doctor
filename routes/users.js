@@ -21,10 +21,11 @@ client.connect(); //connect to database
 
 var passport = require('passport');
 var bcrypt = require('bcryptjs');
+const { query } = require('express');
 
 router.get('/logout', function(req, res){
   req.logout(); //passport provide it
-  res.redirect('/'); // Successful. redirect to localhost:3000/
+  res.redirect('/users/home'); // Successful. redirect to localhost:3000/
 });
 
 function loggedIn(req, res, next) {
@@ -86,12 +87,19 @@ router.get('/signup',function(req, res) {
   res.sendFile(path.join(__dirname,'..', 'public','signup.html'));
 });
 
+function isAdmin(user){
+  if(user){
+    return user.role === 'admin';
+  }
+  return false;
+}
 function createUser(req, res, next) {
+  const role = isAdmin(req.user)? 'admin': 'client';
   var salt = bcrypt.genSaltSync(10);
   var password = bcrypt.hashSync(req.body.password, salt);
   //'INSERT INTO users (username, password, fullname, prefer) VALUES($1, $2, $3, $4)', [req.body.username, password,req.body.fullname,req.body.prefer],
   client.query('INSERT INTO users (username,password,fullname,prefer,email,streetaddress,postcode,city,phone,role) VALUES($1, $2, $3, $4,$5,$6,$7,$8,$9,$10)',
-  [req.body.username, password,req.body.fullname,req.body.prefer, req.body.email, req.body.streetaddress, req.body.postcode, req.body.city, req.body.phone, 'admin'], function(err, result) {
+  [req.body.username, password,req.body.fullname,req.body.prefer, req.body.email, req.body.streetaddress, req.body.postcode, req.body.city, req.body.phone, role], function(err, result) {
     if (err) {
       console.log("unable to query INSERT");
       return next(err); // throw error to error.hbs.
@@ -151,5 +159,47 @@ router.get('/admin', loggedIn, isAdmin, function(req,res,next){
   res.sendFile(path.join(__dirname,'..', 'public','admin.html'))
 })
 
+router.get('/resetPwd', function(req,res,next){
+  res.sendFile(path.join(__dirname,'..', 'public','resetPassword.html'))
+})
 
+router.post('/restPassword', function(req,res,next){
+  console.log('POST: restPassword', req.body);
+  if(req.body.newpassword === req.body.confirmpassword){
+    let salt = bcrypt.genSaltSync(10);
+    let hashPwd = bcrypt.hashSync(req.body.oldpassword, salt);
+    client.query('Select * from users where email=$1', [req.body.email], function(err, response){
+      if(err){
+        console.log('unable to fetch the user from DB and REASON is:'+err);
+        next();
+      }
+      if(response.rows.length){
+        const id = response.rows[0].id;
+        var matched = bcrypt.compareSync(req.body.oldpassword, response.rows[0].password);
+        if(matched){
+          let salt = bcrypt.genSaltSync(10);
+          let password = bcrypt.hashSync(req.body.newpassword, salt);
+
+          console.log('user ID for update ', id, password);
+          client.query('Update users set password=$1 where id=$2', [password, id], function(err,passwordUpdated){
+            if(err){
+              console.log('unable to change the password', err);
+            }
+            console.log('No of records updated :', passwordUpdated.rowCount)
+            res.redirect('/users/resetPwd?message=Password+Reset+Successfully!');
+          })
+        }else{
+          res.redirect('/users/resetPwd?message=Old+Password+Does+NOt+Matched!');
+        }
+      
+        
+      } else {
+        res.redirect('/users/resetPwd?message=User+Does+NOt+In+System!');
+      }
+    })
+  }else {
+    res.redirect('/users/resetPwd?message=Validation+Failed+ConfirmPassword+Not+Matched');
+  }
+ 
+})
 module.exports = router;

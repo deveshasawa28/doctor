@@ -21,8 +21,8 @@
         <ul class="nav navbar-nav">
           <li><a href="users/home">Home</a></li>
           <li class="active"><a href="/products">Products</a></li>
-          <li><a href="/products/orders">Orders</a></li>
-          <li><a href="/users/admin">Admin</a></li>
+          <!-- <li><a href="/products/orders">Orders</a></li>
+          <li><a href="/users/admin">Admin</a></li> -->
           <li><a href="users/info">Contact Us</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -44,12 +44,16 @@
     </div>
 
     <div class="flex-child green">
-      <div alignment="center"><button class="btn btn-primary flex-justify-center" onclick="placeOrder"> Place Orders </button></div>
-      <div><h3 adlignment="center"> Cart </h3></div>
+      <div><h3> Cart </h3></div>
       <span id="order"></span>
     </div>
 
   </div>
+  <script>
+    function myFunction() {
+      alert('Order Placed');
+    }
+    </script>
   <!-- <script src="/javascripts/whoami.js" type="text/babel"></script> -->
   <script src="/javascripts/products.js" type="text/babel"></script>
   <script src="/javascripts/message.js" type="text/babel"></script>

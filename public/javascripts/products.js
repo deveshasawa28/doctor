@@ -37,7 +37,7 @@ function success() {
     document.getElementById("order").innerHTML = carts
 
   }
-  const productsList = data.map((item, index) =>
+  const productsList = data.products.map((item, index) =>
     <div className="row" key={index}>
       <div className="col-sm-12 col-md-8 ">
         <div className="thumbnail">
@@ -55,8 +55,13 @@ function success() {
     </div>
   )
 
+  function placeOrder(){
+    console.log('place oder funciton should work');
+  }
+
   let element = (
     <div>
+      { data.userInfo.role === 'admin'? <div><a href="/products/orders">See All Orders</a></div>:''}
       {productsList}
     </div>
   );

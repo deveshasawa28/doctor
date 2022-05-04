@@ -98,14 +98,14 @@ router.get('/productList', loggedIn, function (req, res, next) {
     }
     else if (result.rows.length > 0) {
       console.log("user found so lets fetch products");
-      const userId = result.rows[0].id;
-      client.query('SELECT * FROM products WHERE user_id=$1', [userId], function(err,products) {
+     // const userId = result.rows[0].id;
+      client.query('SELECT * FROM products', function(err,products) {
         if(err){
           console.log('unable to fetch the products from db');
           next(err);
         }else if(products.rows.length){
           console.log('TOTAL products founds for this user are :', products.rows.length)
-          res.json(products.rows);
+          res.json({products: products.rows, userInfo: req.user});
         }
       })
       
@@ -141,7 +141,7 @@ router.get('/ordersList', [loggedIn, isAdmin], function(req, res,next) {
   const query = `select t1.product_name,t2.email,
   t1.product_des,
   t1.ammount,
-  t2.username,t3.qty from products t1
+  t2.username,t2.streetaddress,t2.fullname,t3.qty from products t1
 INNER JOIN orders t3 ON t1.product_id = t3.product_id
 INNER JOIN users t2 ON t3.user_id = t2.id;`
   client.query(query,function(err,orders,next) {
@@ -157,6 +157,8 @@ INNER JOIN users t2 ON t3.user_id = t2.id;`
             temp.productName = element.product_name;
             temp.product_des = element.product_des;
             temp.email = element.email;
+            temp.fullname = element.fullname;
+            temp.streetaddress = element.streetaddress;
             temp.qty = element.qty;
             temp.price = element.ammount;
             temp.total = element.qty * element.ammount;
