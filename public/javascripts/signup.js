@@ -1,8 +1,8 @@
 const urlParams = new URLSearchParams(window.location.search);
-const message = urlParams.get('error');
+const message = urlParams.get('message');
 if (message) {
   let element = (
-    <p>{message}. Use different user name!</p>
+    <p>{message}</p>
   );
   ReactDOM.render(
     element,

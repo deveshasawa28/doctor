@@ -15,7 +15,7 @@
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="users/profile"> <img alt="Online Medicine Portal" src=""></a>
+        <a class="navbar-brand" href="/"> <img height="20" alt="Online Medicine Portal" src="/images/logo.png"></a>
       </div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
@@ -28,15 +28,18 @@
       </ul>
     </div>
   </nav>
-  <nav class="menu">
-    <ul>
-      <li><a href="/users/home">Back to Home</a> | </li>
-      <li><a href="/users/logout">Log out</a></li>
-    </ul>
-  </nav>
-  <h2>Welcome <span id="username"></span></h2>
-  <div className="bg-image" style="background-image: url('/images/homebg.jpg');
-        height: 100vh">
+
+ 
+  
+  <div className="bg-image" style="background-image: url('/images/homebg.jpg');padding:20px;height: calc(100vh - 53px);margin: 0 -50px;background-repeat: no-repeat;background-size: cover;margin-bottom: -90px;background-position: center bottom;">
+    <h2 style="display: flex;margin:0;align-items: center;">Welcome <span id="username" style="display: inline-block; margin-left: 15px;"></span>
+      <nav class="menu" style="margin-left: auto; font-size: 14px;">
+        <ul style="margin: 0;">
+          <li><a href="/users/home" style="font-size: 14px;">Back to Home</a> |</li>
+          <li><a href="/users/logout"  style="font-size: 14px;">Log out</a></li>
+        </ul>
+      </nav>
+    </h2>
   </div>
 
   <!-- <script src="/javascript/whoami.js" type="text/babel"></script> -->

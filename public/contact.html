@@ -15,11 +15,11 @@
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/users/home"> <img alt="Online Medicine Portal" src=""></a>
+        <a class="navbar-brand" href="/"> <img height="20" alt="Online Medicine Portal" src="/images/logo.png"></a>
       </div>
       <ul class="nav navbar-nav">
         <li><a href="/users/home">Home</a></li>
-        <li ><a href="/products/orders">Orders</a></li>
+        <li><a href="/products/orders">Orders</a></li>
         <li><a href="/products">Products</a></li>
         <li class="active"><a href="/users/info">Contact Us</a></li>
       </ul>
@@ -29,22 +29,33 @@
       </ul>
     </div>
   </nav>
-  <nav class="menu">
-    <ul>
-      <li><a href="/users/home">Back To Home</a> | </li>
-      <li><a href="/users/logout">Log Out</a></li>
-    </ul>
-  </nav>
-  <d class="container">
-    <div id="message"></div>
-    <div id="contact">  </div>
-    <div className="bg-image" style="background-image: url('/images/homebg.jpg');
-    height: 100vh">
-</div>
+
+  
+  
+  <div className="bg-image" style="background-image: url('/images/homebg.jpg');padding:20px;height: calc(100vh - 53px);margin: 0 -50px;background-repeat: no-repeat;background-size: cover;margin-bottom: -90px;background-position: center bottom;">
+    
+    <div style="display:flex; align-items:center">
+      <div id="contact"> </div>
+
+      <nav class="menu" style="margin-left: auto; font-size: 16px; font-style: bold;">
+        <ul >
+          <li><a href="/users/home">Back To Home</a> | </li>
+          <li><a href="/users/logout">Log Out</a></li>
+        </ul>
+      </nav>
     </div>
-    <!-- <script src="/javascripts/whoami.js" type="text/babel"></script> -->
-    <script src="/javascripts/contact.js" type="text/babel"></script>
-    <!-- <script src="/javascripts/message.js" type="text/babel"></script>  -->
+    
+<!--     
+    <div class="row">
+      <div id="message"></div>
+      
+    </div>   -->
+  
+    
+  </div>
+  <!-- <script src="/javascripts/whoami.js" type="text/babel"></script> -->
+  <script src="/javascripts/contact.js" type="text/babel"></script>
+  <!-- <script src="/javascripts/message.js" type="text/babel"></script>  -->
 </body>
 
 </html>

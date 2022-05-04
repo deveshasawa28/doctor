@@ -165,61 +165,15 @@ INNER JOIN users t2 ON t3.user_id = t2.id;`
             ordersList.push(temp);
       });
     }
-    console.log('final orders after joins :',ordersList);
+    //SEnd orders which needed by UI from here.
     res.json({orders: ordersList});
   })
-  // client.query('SELECT * FROM ORDERS where status=$1',['t'],function(err,orders){
-  //   if(err){
-  //     console.log('Unable to fetch the orders and reason is :', err)
-  //     next();
-  //   }
-  //   let orderList = [];
-  //   let productIds = [];
-  //   if(orders.rows.length){
-  //     orders.rows.forEach((item)=> {
-  //       console.log('row item', item);
-  //       productIds.push(item.product_id)
-  //       let temp = {};
-  //       switch(item.product_id){
-  //         case 1: 
-  //           temp.productName = item;
-  //           temp.email = 'admin@test.com';
-  //           temp.qty = item.qty;
-  //           temp.price = item.price;
-  //           temp.total = item.qty * item.price;
-  //           orderList.push(temp);
-  //           break;
-  //         case 2:   
-  //           productName = 'disprin';
-  //           temp.email = 'admin@test.com';
-  //           temp.qty = item.qty;
-  //           temp.price = item.price;
-  //           temp.total = item.qty * item.price;
-  //           orderList.push(temp);
-  //           break;
-  //         case 3: 
-  //           temp.productName = 'madicin-1';
-  //           temp.email = 'client@gmail.com';
-  //           temp.qty = item.qty;
-  //           temp.price = item.price;
-  //           temp.total = item.qty * item.price;
-  //           orderList.push(temp);
-  //           break;  
-  //       }
-  //     });
-  //   }
-  //   console.log('idsssss',productIds)
-  //   console.log('**** orders fetched successfully', orderList.length);
-  //   res.json({orders: orderList});
-  // })
-  
 });
 
 router.get('/addProduct',[loggedIn,isAdmin], function(req,res,next){
   res.sendFile(path.join(__dirname,'..', 'public','addProduct.html'));
 });
 router.post('/placeOrder',[loggedIn], function(req,res,next){
-  console.log('jdsjkdslkj',req);
   next();
 })
 module.exports = router;

@@ -88,6 +88,7 @@ router.get('/signup',function(req, res) {
 });
 
 function isAdmin(user){
+  console.log('USER isAdmin?', user);
   if(user){
     return user.role === 'admin';
   }
@@ -155,8 +156,13 @@ router.get('/contact', loggedIn, function(req,res,next) {
   })
 })
 
-router.get('/admin', loggedIn, isAdmin, function(req,res,next){
-  res.sendFile(path.join(__dirname,'..', 'public','admin.html'))
+router.get('/admin', [loggedIn], function(req,res,next){
+  if(isAdmin(req.user)){
+    res.sendFile(path.join(__dirname,'..', 'public','admin.html'))
+  }else {
+    next();
+  }
+  
 })
 
 router.get('/resetPwd', function(req,res,next){

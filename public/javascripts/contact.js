@@ -12,8 +12,11 @@ function success() {
   let data = JSON.parse(xhttp.response);
   let element = (
     <div>
+      <h4>
       <p>Email : onlineMadical@gmail.com</p>
       <p> Phone : 777778888999</p>
+      </h4>
+     
     </div>
   );
 

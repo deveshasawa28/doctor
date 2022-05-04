@@ -8,34 +8,47 @@ xhttp.send();
 https://reactjs.org/docs/lists-and-keys.html
 https://en.wikipedia.org/wiki/Map_(higher-order_function)
 */
+var cart = []
 
-function success() {
-  var cart = []
-  var carts = []
-  let data = JSON.parse(xhttp.response);
-  function cartDelete(index) {
-    console.log(index);
-    cart.splice(index, 1);
-  }
-  function cartAdd(item, index) {
-    cart.push(item)
-    for (var i = 0; i < cart.length; i++) {
-      carts[i] = `<div className="row" key={cart[i]}>
-        <div className="col-sm-6 col-md-4">
-          <div className="thumbnail">
-            <div className="caption">
-              <p> Product name: <b>${cart[i].product_name}</b></p>
-              <p>  Product description: <b>${cart[i].product_des}</b></p>
-              <p>  Amount: <b>${cart[i].ammount}</b></p>
-              <br/>
-              <button className="btn btn-primary" onClick='${e => cartDelete(index)} '>Remove from cart</button>
-            </div>
+function getCartItem(items) {
+  return items.map((item, index) =>
+  <div className="row" key={index}>
+    <div className="col-sm-12 col-md-8 ">
+      <div className="thumbnail">
+        <div className="caption">
+          <p> Product name: <b>{item.product_name}</b> </p>
+          <p> Product description: <b>{item.product_des}</b> </p>
+          <p> Amount: <b>{item.ammount} </b> </p>
+          <div>
+          <button className="btn btn-primary" style={{marginLeft: '15px'}} onClick={e => cartDelete(index)} >Remove from cart</button>
           </div>
         </div>
-      </div>`
-    }
-    document.getElementById("order").innerHTML = carts
+      </div>
+    </div>
+  </div>
+)
+}
 
+function cartDelete(index) {
+  //Removing item from cart and updating cart again 
+  cart.splice(index, 1);
+  const cartItems= getCartItem(cart);
+  ReactDOM.render(
+    cartItems,
+    document.getElementById('order')
+  )
+}
+function success() {
+ 
+  let data = JSON.parse(xhttp.response);
+  
+  function cartAdd(item, index) {
+    cart.push(item)
+    const cartItems= getCartItem(cart);
+    ReactDOM.render(
+      cartItems,
+      document.getElementById('order')
+    )
   }
   const productsList = data.products.map((item, index) =>
     <div className="row" key={index}>
@@ -46,9 +59,9 @@ function success() {
             <p> Product description: <b>{item.product_des}</b> </p>
             <p> Amount: <b>{item.ammount} </b> </p>
             <div>
-              <button className="btn btn-primary" onClick={e => cartAdd(item, cart.length)} >Add to cart</button></div>
-            <div> <button className="btn btn-primary" onClick={e => cartDelete(cart.length)} >Remove from cart</button></div>
-
+            <button className="btn btn-primary" onClick={e => cartAdd(item, cart.length)} >Add to cart</button>
+            <button className="btn btn-primary" style={{marginLeft: '15px'}} onClick={e => cartDelete(cart.length)} >Remove from cart</button>
+            </div>
           </div>
         </div>
       </div>

@@ -57,7 +57,7 @@ function success() {
     );
     element = (
       <div>
-        <table id="myTable">
+        <table id="myTable" className="table table-bordered">
           <thead>
             <tr><th>Product-Name </th><th>User-Email</th><th>Name</th><th>Address</th><th>qty</th><th>Price</th><th>Total</th></tr>
           </thead>
